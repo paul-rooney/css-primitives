@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import feather from "./feather-sprite.svg";
-import "./index.css";
+import "./index.module.css";
 
 export const Box = ({ padding = "var(--size-3)", borderWidth = "0", children, ...attributes }) => {
     const i = `box-${[padding, borderWidth].join("-")}`;
@@ -22,7 +22,7 @@ export const Box = ({ padding = "var(--size-3)", borderWidth = "0", children, ..
     }
 
     return (
-        <div {...attributes} className={`box ${attributes.className ?? ""}`.trim()} data-i={i}>
+        <div {...attributes} className={`${styles.box} ${attributes.className ?? ""}`.trim()} data-i={i}>
             {children}
         </div>
     );
@@ -74,7 +74,7 @@ export const Center = ({
     }
 
     return (
-        <div {...attributes} className={`center ${attributes.className ?? ""}`.trim()} data-i={i}>
+        <div {...attributes} className={`${styles.center} ${attributes.className ?? ""}`.trim()} data-i={i}>
             {children}
         </div>
     );
@@ -107,7 +107,7 @@ export const Cluster = ({
     }
 
     return (
-        <div {...attributes} className={`cluster ${attributes.className ?? ""}`.trim()} data-i={i}>
+        <div {...attributes} className={`${styles.cluster} ${attributes.className ?? ""}`.trim()} data-i={i}>
             {children}
         </div>
     );
@@ -133,7 +133,7 @@ export const Container = ({ name = null, children, ...attributes }) => {
     }
 
     return (
-        <div {...attributes} className={`container ${attributes.className ?? ""}`.trim()} data-i={i}>
+        <div {...attributes} className={`${styles.container} ${attributes.className ?? ""}`.trim()} data-i={i}>
             {children}
         </div>
     );
@@ -203,7 +203,12 @@ export const Cover = ({
     }
 
     return (
-        <div {...attributes} className={`cover ${attributes.className ?? ""}`.trim()} data-i={i} ref={element}>
+        <div
+            {...attributes}
+            className={`${styles.cover} ${attributes.className ?? ""}`.trim()}
+            data-i={i}
+            ref={element}
+        >
             {children}
         </div>
     );
@@ -229,7 +234,7 @@ export const Frame = ({ ratio = "16:9", children, ...attributes }) => {
     }
 
     return (
-        <div {...attributes} className={`frame ${attributes.className ?? ""}`.trim()} data-i={i}>
+        <div {...attributes} className={`${styles.frame} ${attributes.className ?? ""}`.trim()} data-i={i}>
             {children}
         </div>
     );
@@ -255,7 +260,7 @@ export const Grid = ({ space = "var(--size-3)", min = "250px", children, ...attr
     }
 
     return (
-        <div {...attributes} className={`grid ${attributes.className ?? ""}`.trim()} data-i={i}>
+        <div {...attributes} className={`${styles.grid} ${attributes.className ?? ""}`.trim()} data-i={i}>
             {children}
         </div>
     );
@@ -291,7 +296,7 @@ export const Icon = ({ space = null, label = null, direction = "rtl", icon, chil
     return (
         <span
             {...attributes}
-            className={`icon ${attributes.className ?? ""}`.trim()}
+            className={`${styles.icon} ${attributes.className ?? ""}`.trim()}
             data-i={i}
             dir={direction}
             role="img"
@@ -337,7 +342,7 @@ export const Imposter = ({ breakout = false, margin = "0px", fixed = false, chil
     }
 
     return (
-        <div {...attributes} className={`imposter ${attributes.className ?? ""}`.trim()} data-i={i}>
+        <div {...attributes} className={`${styles.imposter} ${attributes.className ?? ""}`.trim()} data-i={i}>
             {children}
         </div>
     );
@@ -414,7 +419,7 @@ export const Reel = ({
     return (
         <div
             {...attributes}
-            className={`${isOverflowing ? "reel overflowing" : "reel"} ${attributes.className ?? ""}`.trim()}
+            className={`${styles.reel} ${isOverflowing && "overflowing"} ${attributes.className ?? ""}`.trim()}
             data-i={i}
             ref={element}
         >
@@ -471,7 +476,7 @@ export const Sidebar = ({
     }
 
     return (
-        <div {...attributes} className={`sidebar ${attributes.className ?? ""}`.trim()} data-i={i}>
+        <div {...attributes} className={`${styles.sidebar} ${attributes.className ?? ""}`.trim()} data-i={i}>
             {children}
         </div>
     );
@@ -509,7 +514,7 @@ export const Stack = ({ space = "var(--size-3)", recursive = false, splitAfter =
     }
 
     return (
-        <div {...attributes} className={`stack ${attributes.className ?? ""}`.trim()} data-i={i}>
+        <div {...attributes} className={`${styles.stack} ${attributes.className ?? ""}`.trim()} data-i={i}>
             {children}
         </div>
     );
@@ -549,7 +554,7 @@ export const Switcher = ({
     }
 
     return (
-        <div {...attributes} className={`switcher ${attributes.className ?? ""}`.trim()} data-i={i}>
+        <div {...attributes} className={`${styles.switcher} ${attributes.className ?? ""}`.trim()} data-i={i}>
             {children}
         </div>
     );
