@@ -4,7 +4,21 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>CSS Primitives</title>
-        <script src="/js/index.js" type="module" defer></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+            hljs.highlightAll();
+        </script>
+        <!-- <script src="/js/index.js" type="module" defer></script> -->
+        <style>
+            pre {
+                max-height: 320px;
+                overflow: auto;
+            }
+        </style>
     </head>
     <body>
         <header>CSS Primitives</header>
@@ -17,85 +31,191 @@
         </nav>
         <main>
             <stack-l>
+                <h2>JavaScript</h2>
                 <box-l borderWidth="1px">
                     <stack-l>
-                        <h2>JavaScript</h2>
                         <h3>Box</h3>
-                        <pre style="max-height: 480px; overflow-x: auto; white-space: pre-wrap">
-                            export default class Box extends HTMLElement {
-                                constructor() {
-                                  super();
-                                  this.render = () => {
-                                    this.i = `Box-${[this.padding, this.borderWidth, this.invert].join('')}`;
-                                    this.dataset.i = this.i;
-                                    if (!document.getElementById(this.i)) {
-                                      let styleEl = document.createElement('style');
-                                      styleEl.id = this.i;
-                                      styleEl.innerHTML = `
-                                        [data-i="${this.i}"] {
-                                          padding: ${this.padding};
-                                          border: ${this.borderWidth} solid;
-                                          ${this.invert ?
-                                          `background-color: var(--color-light);
-                                            filter: invert(100%);`
-                                          : ''}
-                                        }
-                                    
-                                        [data-i="${this.i}"] {
-                                          background-color: inherit;
-                                        }
-                                      `.replace(/\s\s+/g, ' ').trim();
-                                      document.head.appendChild(styleEl);
-                                    }
-                                  }
-                                }
-                              
-                                get padding() {
-                                  return this.getAttribute('padding') || 'var(--s1)';
-                                }
-                              
-                                set padding(val) {
-                                  return this.setAttribute('padding', val);
-                                }
-                              
-                                get borderWidth() {
-                                  return this.getAttribute('borderWidth') || 'var(--border-thin)';
-                                }
-                              
-                                set borderWidth(val) {
-                                  return this.setAttribute('borderWidth', val);
-                                }
-                              
-                                static get observedAttributes() {
-                                  return ['borderWidth', 'padding', 'invert'];
-                                }
-                              
-                                get invert() {
-                                  return this.hasAttribute('invert');
-                                }
-                              
-                                set invert(val) {
-                                  if (val) {
-                                    return this.setAttribute('invert', '');
-                                  } else {
-                                    return this.removeAttribute('invert');
-                                  }
-                                }
-                              
-                                connectedCallback() {
-                                  this.render();
-                                }
-                              
-                                attributeChangedCallback() {
-                                  this.render();
-                                }
-                              }
-                              
-                              if ('customElements' in window) {
-                                customElements.define('box-l', Box);
-                              }
+                        <pre>
+                            <code>
+export default class Box extends HTMLElement {
+    constructor() {
+        super();
+        this.render = () => {
+            this.i = `Box-${[this.padding, this.borderWidth, this.invert].join("")}`;
+            this.dataset.i = this.i;
+            if (!document.getElementById(this.i)) {
+                let styleEl = document.createElement("style");
+                styleEl.id = this.i;
+                styleEl.innerHTML = `
+          [data-i="${this.i}"] {
+            padding: ${this.padding};
+            border: ${this.borderWidth} solid;
+            ${
+                this.invert
+                    ? `background-color: var(--color-light);
+              filter: invert(100%);`
+                    : ""
+            }
+          }
+      
+          [data-i="${this.i}"] {
+            background-color: inherit;
+          }
+        `
+                    .replace(/\s\s+/g, " ")
+                    .trim();
+                document.head.appendChild(styleEl);
+            }
+        };
+    }
+
+    get padding() {
+        return this.getAttribute("padding") || "var(--s1)";
+    }
+
+    set padding(val) {
+        return this.setAttribute("padding", val);
+    }
+
+    get borderWidth() {
+        return this.getAttribute("borderWidth") || "var(--border-thin)";
+    }
+
+    set borderWidth(val) {
+        return this.setAttribute("borderWidth", val);
+    }
+
+    static get observedAttributes() {
+        return ["borderWidth", "padding", "invert"];
+    }
+
+    get invert() {
+        return this.hasAttribute("invert");
+    }
+
+    set invert(val) {
+        if (val) {
+            return this.setAttribute("invert", "");
+        } else {
+            return this.removeAttribute("invert");
+        }
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    attributeChangedCallback() {
+        this.render();
+    }
+}
+
+if ("customElements" in window) {
+    customElements.define("box-l", Box);
+}
+                            </code>
                         </pre>
                     </stack-l>
+                </box-l>
+                <box-l borderWidth="1px">
+                    <h3>Center</h3>
+                    <pre>
+                        <code>
+export default class Center extends HTMLElement {
+    constructor() {
+        super();
+        this.render = () => {
+            this.i = `Center-${[this.max, this.andText, this.gutters, this.intrinsic].join("")}`;
+            this.dataset.i = this.i;
+            if (!document.getElementById(this.i)) {
+                let styleEl = document.createElement("style");
+                styleEl.id = this.i;
+                styleEl.innerHTML = `
+            [data-i="${this.i}"] {
+            max-width: ${this.max};
+            ${
+                this.gutters
+                    ? `
+            padding-inline-start: ${this.gutters};
+            padding-inline-end: ${this.gutters};`
+                    : ""
+            }
+            ${this.andText ? `text-align: center;` : ""}
+            ${
+                this.intrinsic
+                    ? `
+            display: flex;
+            flex-direction: column;
+            align-items: center;`
+                    : ""
+            }
+            }
+        `
+                    .replace(/\s\s+/g, " ")
+                    .trim();
+                document.head.appendChild(styleEl);
+            }
+        };
+    }
+
+    get max() {
+        return this.getAttribute("max") || "var(--measure)";
+    }
+
+    set max(val) {
+        return this.setAttribute("max", val);
+    }
+
+    get andText() {
+        return this.hasAttribute("andText");
+    }
+
+    set andText(val) {
+        if (val) {
+            return this.setAttribute("andText", "");
+        } else {
+            return this.removeAttribute("andText");
+        }
+    }
+
+    get gutters() {
+        return this.getAttribute("gutters") || null;
+    }
+
+    set gutters(val) {
+        return this.setAttribute("gutters", val);
+    }
+
+    get intrinsic() {
+        return this.hasAttribute("intrinsic");
+    }
+
+    set intrinsic(val) {
+        if (val) {
+            return this.setAttribute("intrinsic", "");
+        } else {
+            return this.removeAttribute("intrinsic");
+        }
+    }
+
+    static get observedAttributes() {
+        return ["max", "andText", "gutters", "intrinsic"];
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    attributeChangedCallback() {
+        this.render();
+    }
+}
+
+if ("customElements" in window) {
+    customElements.define("center-l", Center);
+}
+                        </code>
+                    </pre>
                 </box-l>
             </stack-l>
         </main>
