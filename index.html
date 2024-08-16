@@ -2,39 +2,48 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>CSS Primitives</title>
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
-        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
         <script>
             hljs.highlightAll();
         </script>
-        <!-- <script src="/js/index.js" type="module" defer></script> -->
-        <style>
-            pre {
-                max-height: 320px;
-                overflow: auto;
-            }
-        </style>
+        <script src="/javascript/index.js" type="module" defer></script>
     </head>
     <body>
-        <header>CSS Primitives</header>
+        <header><h1>CSS Primitives</h1></header>
         <nav>
-            <cluster-l>
-                <a href="">JavaScript</a>
-                <a href="">React</a>
-                <a href="">TypeScript</a>
+            <cluster-l space="1.5rem">
+                <a href="#box">Box</a>
+                <a href="#center">Center</a>
+                <a href="#cluster">Cluster</a>
+                <a href="#container">Container</a>
+                <a href="#cover">Cover</a>
+                <a href="#frame">Frame</a>
+                <a href="#grid">Grid</a>
+                <a href="#icon">Icon</a>
+                <a href="#imposter">Imposter</a>
+                <a href="#reel">Reel</a>
+                <a href="#sidebar">Sidebar</a>
+                <a href="#stack">Stack</a>
+                <a href="#switcher">Switcher</a>
             </cluster-l>
         </nav>
         <main>
-            <stack-l>
-                <h2>JavaScript</h2>
-                <box-l borderWidth="1px">
+            <grid-l min="500px">
+                <box-l padding="0" id="box" class="code-block">
                     <stack-l>
-                        <h3>Box</h3>
+                        <box-l borderWidth="0">
+                            <cluster-l justify="space-between" align="baseline">
+                                <h3>Box</h3>
+                                <button data-action="COPY">Copy</button>
+                            </cluster-l>
+                        </box-l>
                         <pre>
                             <code>
 export default class Box extends HTMLElement {
@@ -117,8 +126,13 @@ if ("customElements" in window) {
                         </pre>
                     </stack-l>
                 </box-l>
-                <box-l borderWidth="1px">
-                    <h3>Center</h3>
+                <box-l padding="0" id="center" class="code-block">
+                    <box-l borderWidth="0">
+                        <cluster-l justify="space-between" align="baseline">
+                            <h3>Center</h3>
+                            <button data-action="COPY">Copy</button>
+                        </cluster-l>
+                    </box-l>
                     <pre>
                         <code>
 export default class Center extends HTMLElement {
@@ -217,8 +231,954 @@ if ("customElements" in window) {
                         </code>
                     </pre>
                 </box-l>
-            </stack-l>
+                <box-l padding="0" id="cluster" class="code-block">
+                    <box-l borderWidth="0">
+                        <cluster-l justify="space-between" align="baseline">
+                            <h3>Cluster</h3>
+                            <button data-action="COPY">Copy</button>
+                        </cluster-l>
+                    </box-l>
+                    <pre>
+                        <code>
+export default class Cluster extends HTMLElement {
+    constructor() {
+        super();
+        this.render = () => {
+            this.i = `Cluster-${[this.justify, this.align, this.space].join("")}`;
+            this.dataset.i = this.i;
+            if (!document.getElementById(this.i)) {
+                let styleEl = document.createElement("style");
+                styleEl.id = this.i;
+                styleEl.innerHTML = `
+          [data-i="${this.i}"] {
+            justify-content: ${this.justify};
+            align-items: ${this.align};
+            gap: ${this.space};
+          }
+        `
+                    .replace(/\s\s+/g, " ")
+                    .trim();
+                document.head.appendChild(styleEl);
+            }
+        };
+    }
+
+    get justify() {
+        return this.getAttribute("justify") || "flex-start";
+    }
+
+    set justify(val) {
+        return this.setAttribute("justify", val);
+    }
+
+    get align() {
+        return this.getAttribute("align") || "flex-start";
+    }
+
+    set align(val) {
+        return this.setAttribute("align", val);
+    }
+
+    get space() {
+        return this.getAttribute("space") || "var(--s1)";
+    }
+
+    set space(val) {
+        return this.setAttribute("space", val);
+    }
+
+    static get observedAttributes() {
+        return ["justify", "align", "space"];
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    attributeChangedCallback() {
+        this.render();
+    }
+}
+
+if ("customElements" in window) {
+    customElements.define("cluster-l", Cluster);
+}
+                        </code>
+                    </pre>
+                </box-l>
+                <box-l padding="0" id="container" class="code-block">
+                    <box-l borderWidth="0">
+                        <cluster-l justify="space-between" align="baseline">
+                            <h3>Container</h3>
+                            <button data-action="COPY">Copy</button>
+                        </cluster-l>
+                    </box-l>
+                    <pre>
+                        <code>
+export default class Container extends HTMLElement {
+    constructor() {
+        super();
+        this.render = () => {
+            this.i = `Container-${[this.name]}`;
+            this.dataset.i = this.i;
+            if (!document.getElementById(this.i)) {
+                let styleEl = document.createElement("style");
+                styleEl.id = this.i;
+                styleEl.innerHTML = `
+            [data-i="${this.i}"] {
+              display: block;
+              container-type: inline-size;
+              ${this.name ? `container-name: ${this.name};` : ""}
+            }
+          `
+                    .replace(/\s\s+/g, " ")
+                    .trim();
+                document.head.appendChild(styleEl);
+            }
+        };
+    }
+
+    get name() {
+        return this.getAttribute("name") || null;
+    }
+
+    set name(val) {
+        return this.setAttribute("name", val);
+    }
+
+    static get observedAttributes() {
+        return ["name"];
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    attributeChangedCallback() {
+        this.render();
+    }
+}
+
+if ("customElements" in window) {
+    customElements.define("container-l", Container);
+}
+                        </code>
+                    </pre>
+                </box-l>
+                <box-l padding="0" id="Cover" class="code-block">
+                    <box-l borderWidth="0">
+                        <cluster-l justify="space-between" align="baseline">
+                            <h3>Cover</h3>
+                            <button data-action="COPY">Copy</button>
+                        </cluster-l>
+                    </box-l>
+                    <pre>
+                        <code>
+export default class Cover extends HTMLElement {
+    constructor() {
+        super();
+        this.render = () => {
+            this.i = `Cover-${[this.centered, this.space, this.minHeight, this.noPad].join("")}`;
+            this.dataset.i = this.i;
+            if (!document.getElementById(this.i)) {
+                let styleEl = document.createElement("style");
+                styleEl.id = this.i;
+                styleEl.innerHTML = `
+          [data-i="${this.i}"] {
+            min-height: ${this.minHeight};
+            padding: ${!this.noPad ? this.space : "0"};
+          }
+      
+          [data-i="${this.i}"] > * {
+            margin-block: ${this.space};
+          }
+      
+          [data-i="${this.i}"] > :first-child:not(${this.centered}) {
+            margin-block-start: 0;
+          }
+      
+          [data-i="${this.i}"] > :last-child:not(${this.centered}) {
+            margin-block-end: 0;
+          }
+      
+          [data-i="${this.i}"] > ${this.centered} {
+            margin-block: auto;
+          }
+        `
+                    .replace(/\s\s+/g, " ")
+                    .trim();
+                document.head.appendChild(styleEl);
+            }
+        };
+    }
+
+    get centered() {
+        return this.getAttribute("centered") || "h1";
+    }
+
+    set centered(val) {
+        return this.setAttribute("centered", val);
+    }
+
+    get space() {
+        return this.getAttribute("space") || "var(--s1)";
+    }
+
+    set space(val) {
+        return this.setAttribute("space", val);
+    }
+
+    get minHeight() {
+        return this.getAttribute("minHeight") || "100vh";
+    }
+
+    set minHeight(val) {
+        return this.setAttribute("minHeight", val);
+    }
+
+    get noPad() {
+        return this.hasAttribute("noPad");
+    }
+
+    set noPad(val) {
+        if (val) {
+            return this.setAttribute("noPad", "");
+        } else {
+            return this.removeAttribute("noPad");
+        }
+    }
+
+    static get observedAttributes() {
+        return ["centered", "space", "minHeight", "noPad"];
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    attributeChangedCallback() {
+        this.render();
+    }
+}
+
+if ("customElements" in window) {
+    customElements.define("cover-l", Cover);
+}
+                        </code>
+                    </pre>
+                </box-l>
+                <box-l padding="0" id="frame" class="code-block">
+                    <box-l borderWidth="0">
+                        <cluster-l justify="space-between" align="baseline">
+                            <h3>Frame</h3>
+                            <button data-action="COPY">Copy</button>
+                        </cluster-l>
+                    </box-l>
+                    <pre>
+                        <code>
+export default class Frame extends HTMLElement {
+    constructor() {
+        super();
+        this.render = () => {
+            if (this.children.length !== 1) {
+                console.warn("<frame-l> elements should have just one child element");
+            }
+            this.i = `Frame-${[this.ratio].join("")}`;
+            this.dataset.i = this.i;
+            if (!document.getElementById(this.i)) {
+                let ratio = this.ratio.split(":");
+                let styleEl = document.createElement("style");
+                styleEl.id = this.i;
+                styleEl.innerHTML = `
+          [data-i="${this.i}"] {
+            aspect-ratio: ${ratio[0]} / ${ratio[1]};
+          }
+        `
+                    .replace(/\s\s+/g, " ")
+                    .trim();
+                document.head.appendChild(styleEl);
+            }
+        };
+    }
+
+    get ratio() {
+        return this.getAttribute("ratio") || "16:9";
+    }
+
+    set ratio(val) {
+        return this.setAttribute("ratio", val);
+    }
+
+    static get observedAttributes() {
+        return ["ratio"];
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    attributeChangedCallback() {
+        this.render();
+    }
+}
+
+if ("customElements" in window) {
+    customElements.define("frame-l", Frame);
+}
+                        </code>
+                    </pre>
+                </box-l>
+                <box-l padding="0" id="grid" class="code-block">
+                    <box-l borderWidth="0">
+                        <cluster-l justify="space-between" align="baseline">
+                            <h3>Grid</h3>
+                            <button data-action="COPY">Copy</button>
+                        </cluster-l>
+                    </box-l>
+                    <pre>
+                        <code>
+export default class Grid extends HTMLElement {
+    constructor() {
+        super();
+        this.render = () => {
+            this.i = `Grid-${[this.min, this.space].join("")}`;
+            this.dataset.i = this.i;
+            if (!document.getElementById(this.i)) {
+                let styleEl = document.createElement("style");
+                styleEl.id = this.i;
+                styleEl.innerHTML = `
+          [data-i="${this.i}"] {
+            grid-gap: ${this.space};
+          }
+
+          @supports (width: min(${this.min}, 100%)) {
+            [data-i="${this.i}"] {
+              grid-template-columns: repeat(auto-fill, minmax(min(${this.min}, 100%), 1fr));
+            }
+          }
+        `
+                    .replace(/\s\s+/g, " ")
+                    .trim();
+                document.head.appendChild(styleEl);
+            }
+        };
+    }
+
+    get min() {
+        return this.getAttribute("min") || "250px";
+    }
+
+    set min(val) {
+        return this.setAttribute("min", val);
+    }
+
+    get space() {
+        return this.getAttribute("space") || "1rem";
+    }
+
+    set space(val) {
+        return this.setAttribute("space", val);
+    }
+
+    static get observedAttributes() {
+        return ["min", "space"];
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    attributeChangedCallback() {
+        this.render();
+    }
+}
+
+if ("customElements" in window) {
+    customElements.define("grid-l", Grid);
+}
+                        </code>
+                    </pre>
+                </box-l>
+                <box-l padding="0" id="icon" class="code-block">
+                    <box-l borderWidth="0">
+                        <cluster-l justify="space-between" align="baseline">
+                            <h3>Icon</h3>
+                            <button data-action="COPY">Copy</button>
+                        </cluster-l>
+                    </box-l>
+                    <pre>
+                        <code>
+export default class Icon extends HTMLElement {
+    constructor() {
+        super();
+        this.render = () => {
+            if (this.label) {
+                this.setAttribute("role", "img");
+                this.setAttribute("aria-label", this.label);
+            }
+            if (this.space) {
+                this.i = `Icon-${this.space}`;
+                this.dataset.i = this.i;
+                if (!document.getElementById(this.i)) {
+                    let styleEl = document.createElement("style");
+                    styleEl.id = this.i;
+                    styleEl.innerHTML = `
+            [data-i="${this.i}"] {
+              display: inline-flex;
+              align-items: baseline;
+            }
+
+            [data-i="${this.i}"] > svg {
+              margin-inline-end: ${this.space};
+            }
+          `
+                        .replace(/\s\s+/g, " ")
+                        .trim();
+                    document.head.appendChild(styleEl);
+                }
+            }
+        };
+    }
+
+    get space() {
+        return this.getAttribute("space") || null;
+    }
+
+    set space(val) {
+        return this.setAttribute("space", val);
+    }
+
+    get label() {
+        return this.getAttribute("label") || null;
+    }
+
+    set label(val) {
+        return this.setAttribute("label", val);
+    }
+
+    static get observedAttributes() {
+        return ["space", "label"];
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    attributeChangedCallback() {
+        this.render();
+    }
+}
+
+if ("customElements" in window) {
+    customElements.define("icon-l", Icon);
+}
+                        </code>
+                    </pre>
+                </box-l>
+                <box-l padding="0" id="imposter" class="code-block">
+                    <box-l borderWidth="0">
+                        <cluster-l justify="space-between" align="baseline">
+                            <h3>Imposter</h3>
+                            <button data-action="COPY">Copy</button>
+                        </cluster-l>
+                    </box-l>
+                    <pre>
+                        <code>
+export default class Imposter extends HTMLElement {
+    constructor() {
+        super();
+        this.render = () => {
+            this.i = `Imposter-${[this.breakout, this.fixed, this.margin].join("")}`;
+            this.dataset.i = this.i;
+            let margin = this.margin === "0" ? "0px" : this.margin;
+            if (!document.getElementById(this.i) && (!this.breakout || this.fixed)) {
+                let styleEl = document.createElement("style");
+                styleEl.id = this.i;
+                styleEl.innerHTML = `
+          [data-i="${this.i}"] {
+            ${
+                !this.breakout
+                    ? `
+              max-inline-size: calc(100% - (${margin} * 2));
+              max-block-size: calc(100% - (${margin} * 2));
+              overflow: auto;`
+                    : ""
+            }
+            ${
+                this.fixed
+                    ? `
+              position: fixed;`
+                    : ""
+            }
+          }
+        `
+                    .replace(/\s\s+/g, " ")
+                    .trim();
+                document.head.appendChild(styleEl);
+            }
+        };
+    }
+
+    get breakout() {
+        return this.hasAttribute("breakout");
+    }
+
+    set breakout(val) {
+        if (val) {
+            return this.setAttribute("breakout", "");
+        } else {
+            return this.removeAttribute("breakout");
+        }
+    }
+
+    get fixed() {
+        return this.hasAttribute("fixed");
+    }
+
+    set fixed(val) {
+        if (val) {
+            return this.setAttribute("fixed", "");
+        } else {
+            return this.removeAttribute("fixed");
+        }
+    }
+
+    get margin() {
+        return this.getAttribute("margin") || "0px";
+    }
+
+    set margin(val) {
+        return this.setAttribute("margin", val);
+    }
+
+    static get observedAttributes() {
+        return ["breakout", "margin", "fixed"];
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    attributeChangedCallback() {
+        this.render();
+    }
+}
+
+if ("customElements" in window) {
+    customElements.define("imposter-l", Imposter);
+}
+                        </code>
+                    </pre>
+                </box-l>
+                <box-l padding="0" id="reel" class="code-block">
+                    <box-l borderWidth="0">
+                        <cluster-l justify="space-between" align="baseline">
+                            <h3>Reel</h3>
+                            <button data-action="COPY">Copy</button>
+                        </cluster-l>
+                    </box-l>
+                    <pre>
+                        <code>
+export default class Reel extends HTMLElement {
+    constructor() {
+        super();
+        this.render = () => {
+            this.i = `Reel-${[this.itemWidth, this.height, this.space, this.noBar].join("")}`;
+            this.dataset.i = this.i;
+            if (!document.getElementById(this.i)) {
+                let styleEl = document.createElement("style");
+                styleEl.id = this.i;
+                styleEl.innerHTML = `
+          [data-i="${this.i}"] {
+            height: ${this.height};
+          }
+      
+          [data-i="${this.i}"] > * {
+            flex: 0 0 ${this.itemWidth};
+          }
+      
+          [data-i="${this.i}"] > img {
+            height: 100%;
+            flex-basis: auto;
+            width: auto;
+          }
+      
+          [data-i="${this.i}"] > * + * {
+            margin-inline-start: ${this.space};
+          }
+      
+          [data-i="${this.i}"].overflowing {
+            ${!this.noBar ? `padding-bottom: ${this.space}` : ""}
+          }
+      
+          ${
+              this.noBar
+                  ? `
+          [data-i="${this.i}"] {
+            scrollbar-width: none;
+          }
+          
+          [data-i="${this.i}"]::-webkit-scrollbar {
+            display: none;
+          }
+          `
+                  : ""
+          }
+        `
+                    .replace(/\s\s+/g, " ")
+                    .trim();
+                document.head.appendChild(styleEl);
+            }
+        };
+    }
+
+    toggleOverflowClass(elem) {
+        elem.classList.toggle("overflowing", this.scrollWidth > this.clientWidth);
+    }
+
+    get itemWidth() {
+        return this.getAttribute("itemWidth") || "auto";
+    }
+
+    set itemWidth(val) {
+        return this.setAttribute("itemWidth", val);
+    }
+
+    get height() {
+        return this.getAttribute("height") || "auto";
+    }
+
+    set height(val) {
+        return this.setAttribute("height", val);
+    }
+
+    get space() {
+        return this.getAttribute("space") || "var(--s0)";
+    }
+
+    set space(val) {
+        return this.setAttribute("space", val);
+    }
+
+    get noBar() {
+        return this.hasAttribute("noBar");
+    }
+
+    set noBar(val) {
+        if (val) {
+            this.setAttribute("noBar", "");
+        } else {
+            this.removeAttribute("noBar");
+        }
+    }
+
+    static get observedAttributes() {
+        return ["itemWidth", "height", "space", "noBar"];
+    }
+
+    connectedCallback() {
+        this.render();
+        if ("ResizeObserver" in window) {
+            new ResizeObserver((entries) => {
+                this.toggleOverflowClass(entries[0].target);
+            }).observe(this);
+        }
+
+        if ("MutationObserver" in window) {
+            new MutationObserver((entries) => {
+                this.toggleOverflowClass(entries[0].target);
+            }).observe(this, { childList: true });
+        }
+    }
+
+    attributeChangedCallback() {
+        this.render();
+    }
+}
+
+if ("customElements" in window) {
+    customElements.define("reel-l", Reel);
+}
+                        </code>
+                    </pre>
+                </box-l>
+                <box-l padding="0" id="sidebar" class="code-block">
+                    <box-l borderWidth="0">
+                        <cluster-l justify="space-between" align="baseline">
+                            <h3>Sidebar</h3>
+                            <button data-action="COPY">Copy</button>
+                        </cluster-l>
+                    </box-l>
+                    <pre>
+                        <code>
+export default class Sidebar extends HTMLElement {
+    constructor() {
+        super();
+        this.render = () => {
+            if (!this.contentMin.includes("%")) {
+                console.warn("The value for each &lt;sidebar-l&gt; `contentMin` property should be a percentage. Otherwise overflow is likely to occur");
+            }
+            this.i = `Sidebar-${[this.side, this.sideWidth, this.contentMin, this.space].join("")}`;
+            this.dataset.i = this.i;
+            if (!document.getElementById(this.i)) {
+                let styleEl = document.createElement("style");
+                styleEl.id = this.i;
+                styleEl.innerHTML = `
+          [data-i="${this.i}"] {
+            gap: ${this.space};
+            ${this.noStretch ? "align-items: flex-start;" : ""}
+          }
+      
+          [data-i="${this.i}"] > * {
+            ${this.sideWidth ? `flex-basis: ${this.sideWidth};` : ""}
+          }
+      
+          [data-i="${this.i}"] > ${this.side !== "left" ? `:first-child` : `:last-child`} {
+            flex-basis: 0;
+            flex-grow: 999;
+            min-inline-size: ${this.contentMin};
+          }
+        `
+                    .replace(/\s\s+/g, " ")
+                    .trim();
+                document.head.appendChild(styleEl);
+            }
+        };
+    }
+
+    get side() {
+        return this.getAttribute("side") || "left";
+    }
+
+    set side(val) {
+        return this.setAttribute("side", val);
+    }
+
+    get sideWidth() {
+        return this.getAttribute("sideWidth") || null;
+    }
+
+    set sideWidth(val) {
+        return this.setAttribute("sideWidth", val);
+    }
+
+    get contentMin() {
+        return this.getAttribute("contentMin") || "50%";
+    }
+
+    set contentMin(val) {
+        return this.setAttribute("contentMin", val);
+    }
+
+    get space() {
+        return this.getAttribute("space") || "var(--s1)";
+    }
+
+    set space(val) {
+        return this.setAttribute("space", val);
+    }
+
+    get noStretch() {
+        return this.hasAttribute("noStretch");
+    }
+
+    set noStretch(val) {
+        if (val) {
+            this.setAttribute("noStretch", "");
+        } else {
+            this.removeAttribute("noStretch");
+        }
+    }
+
+    static get observedAttributes() {
+        return ["side", "sideWidth", "contentMin", "space", "noStretch"];
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    attributeChangedCallback(name) {
+        this.render();
+    }
+}
+
+if ("customElements" in window) {
+    customElements.define("sidebar-l", Sidebar);
+}
+                        </code>
+                    </pre>
+                </box-l>
+                <box-l padding="0" id="stack" class="code-block">
+                    <box-l borderWidth="0">
+                        <cluster-l justify="space-between" align="baseline">
+                            <h3>Stack</h3>
+                            <button data-action="COPY">Copy</button>
+                        </cluster-l>
+                    </box-l>
+                    <pre>
+                        <code>
+export default class Stack extends HTMLElement {
+    constructor() {
+        super();
+        this.render = () => {
+            this.i = `Stack-${[this.space, this.recursive, this.splitAfter].join("")}`;
+            this.dataset.i = this.i;
+            if (!document.getElementById(this.i)) {
+                let styleEl = document.createElement("style");
+                styleEl.id = this.i;
+                styleEl.innerHTML = `
+          [data-i="${this.i}"]${this.recursive ? "" : " >"} * + * {
+            margin-block-start: ${this.space};
+          }
+      
+          ${
+              this.splitAfter
+                  ? `
+            [data-i="${this.i}"]:only-child {
+              block-size: 100%;
+            }
+      
+            [data-i="${this.i}"] > :nth-child(${this.splitAfter}) {
+              margin-block-end: auto;
+            }`
+                  : ""
+          }
+        `
+                    .replace(/\s\s+/g, " ")
+                    .trim();
+                document.head.appendChild(styleEl);
+            }
+        };
+    }
+
+    get space() {
+        return this.getAttribute("space") || "1rem";
+    }
+
+    set space(val) {
+        return this.setAttribute("space", val);
+    }
+
+    get recursive() {
+        return this.hasAttribute("recursive");
+    }
+
+    set recursive(val) {
+        return this.setAttribute(val ? "recursive" : "");
+    }
+
+    get splitAfter() {
+        return this.getAttribute("splitAfter") || null;
+    }
+
+    set splitAfter(val) {
+        return this.setAttribute("splitAfter", val);
+    }
+
+    static get observedAttributes() {
+        return ["space", "recursive", "splitAfter"];
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    attributeChangedCallback() {
+        this.render();
+    }
+}
+
+if ("customElements" in window) {
+    customElements.define("stack-l", Stack);
+}
+                        </code>
+                    </pre>
+                </box-l>
+                <box-l padding="0" id="switcher" class="code-block">
+                    <box-l borderWidth="0">
+                        <cluster-l justify="space-between" align="baseline">
+                            <h3>Switcher</h3>
+                            <button data-action="COPY">Copy</button>
+                        </cluster-l>
+                    </box-l>
+                    <pre>
+                        <code>
+export default class Switcher extends HTMLElement {
+    constructor() {
+        super();
+        this.render = () => {
+            this.i = `Switcher-${[this.threshold, this.space, this.limit].join("")}`;
+            this.dataset.i = this.i;
+            if (!document.getElementById(this.i)) {
+                let styleEl = document.createElement("style");
+                styleEl.id = this.i;
+                styleEl.innerHTML = `
+          [data-i="${this.i}"] {
+            gap: ${this.space};
+          }
+
+          [data-i="${this.i}"] > * {
+            flex-basis: calc((${this.threshold} - 100%) * 999);
+          }
+
+          [data-i="${this.i}"] > :nth-last-child(n+${parseInt(this.limit) + 1}),
+          [data-i="${this.i}"] > :nth-last-child(n+${parseInt(this.limit) + 1}) ~ * {
+            flex-basis: 100%;
+          }
+        `
+                    .replace(/\s\s+/g, " ")
+                    .trim();
+                document.head.appendChild(styleEl);
+            }
+        };
+    }
+    get threshold() {
+        return this.getAttribute("threshold") || "var(--measure)";
+    }
+
+    set threshold(val) {
+        return this.setAttribute("threshold", val);
+    }
+
+    get space() {
+        return this.getAttribute("space") || "var(--s1)";
+    }
+
+    set space(val) {
+        return this.setAttribute("space", val);
+    }
+
+    get limit() {
+        return this.getAttribute("limit") || "5";
+    }
+
+    set limit(val) {
+        return this.setAttribute("limit", val);
+    }
+
+    static get observedAttributes() {
+        return ["threshold", "space", "limit"];
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    attributeChangedCallback() {
+        this.render();
+    }
+}
+
+if ("customElements" in window) {
+    customElements.define("switcher-l", Switcher);
+}
+                        </code>
+                    </pre>
+                </box-l>
+            </grid-l>
         </main>
         <footer></footer>
+        <script type="module" src="/main.js"></script>
     </body>
 </html>
