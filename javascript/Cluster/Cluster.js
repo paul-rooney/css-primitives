@@ -1,5 +1,3 @@
-import "./Cluster.css";
-
 /**
  * @module cluster-l
  * @description

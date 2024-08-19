@@ -1,4 +1,17 @@
 @import "./css/reset.css";
+@import "./javascript/Box/Box.css";
+@import "./javascript/Center/Center.css";
+@import "./javascript/Cluster/Cluster.css";
+@import "./javascript/Container/Container.css";
+@import "./javascript/Cover/Cover.css";
+@import "./javascript/Frame/Frame.css";
+@import "./javascript/Grid/Grid.css";
+@import "./javascript/Icon/Icon.css";
+@import "./javascript/Imposter/Imposter.css";
+@import "./javascript/Reel/Reel.css";
+@import "./javascript/Sidebar/Sidebar.css";
+@import "./javascript/Stack/Stack.css";
+@import "./javascript/Switcher/Switcher.css";
 
 :root {
     --text-color-1: hsl(220 12.5% 95%);

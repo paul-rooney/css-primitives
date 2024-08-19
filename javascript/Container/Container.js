@@ -1,5 +1,3 @@
-import "./Container.css";
-
 /**
  * @module container-l
  * @description

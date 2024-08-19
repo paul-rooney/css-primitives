@@ -1,5 +1,3 @@
-import "./Box.css";
-
 /**
  * @module box-l
  * @description

@@ -1,5 +1,3 @@
-import "./Stack.css";
-
 /**
  * @module stack-l
  * @description

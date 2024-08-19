@@ -1,5 +1,3 @@
-import "./Sidebar.css";
-
 /**
  * @module sidebar-l
  * @description

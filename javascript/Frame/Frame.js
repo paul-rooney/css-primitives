@@ -1,5 +1,3 @@
-import "./Frame.css";
-
 /**
  * @module frame-l
  * @description

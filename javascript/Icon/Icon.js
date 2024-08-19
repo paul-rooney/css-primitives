@@ -1,5 +1,3 @@
-import "./Icon.css";
-
 /**
  * @module icon-l
  * @description

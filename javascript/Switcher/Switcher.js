@@ -1,5 +1,3 @@
-import "./Switcher.css";
-
 /**
  * @module switcher-l
  * @description Switch directly between horizontal and vertical layouts at a given (container width-based) breakpoint or 'threshold'

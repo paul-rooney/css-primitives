@@ -1,5 +1,3 @@
-import "./Imposter.css";
-
 /**
  * @module imposter-l
  * @description

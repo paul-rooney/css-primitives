@@ -1,5 +1,3 @@
-import "./Center.css";
-
 /**
  * @module center-l
  * @description

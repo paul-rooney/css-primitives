@@ -1,5 +1,3 @@
-import "./Grid.css";
-
 /**
  * @module grid-l
  * @description

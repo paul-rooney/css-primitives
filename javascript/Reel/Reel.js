@@ -1,5 +1,3 @@
-import "./Reel.css";
-
 /**
  * @module reel-l
  * @description

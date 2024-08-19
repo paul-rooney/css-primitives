@@ -1,5 +1,3 @@
-import "./Cover.css";
-
 /**
  * @module cover-l
  * @description
